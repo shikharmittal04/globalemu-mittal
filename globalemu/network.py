@@ -325,7 +325,7 @@ class nn():
                               ' Epochs used = ' + str(epoch))
                         break
 
-            if (epoch + self.save_after) % 1 == 0:
+            if (epoch + 1) % self.save_after == 0:
                 model.save(self.base_dir + 'model.h5')
                 np.savetxt(
                     self.base_dir + 'loss_history.txt', train_loss_results)
