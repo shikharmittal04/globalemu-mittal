@@ -209,3 +209,21 @@ class signal_plot():
         plt.subplots_adjust(hspace=0, wspace=0)
         plt.savefig(self.base_dir + 'eval_plot.pdf')
         plt.close()
+
+        #---------------------------------------------
+        #Shikhar: saving the data for the quality figure for customisation purpose.
+        print('\nSaving the predicted and true signals.\n')
+        save_dir = self.base_dir + '/checks/'
+        np.save(save_dir+'mean_true',mean_label)
+        np.save(save_dir+'mean_pred',mean_pred)
+        np.save(save_dir+'95_true',limit_label)
+        np.save(save_dir+'95_pred',limit_pred)
+        np.save(save_dir+'worst_true',worst_label)
+        np.save(save_dir+'worst_pred',worst_pred)
+
+
+        filenm = open(save_dir+'loss_quality.txt', "w")
+        filenm.write(f'{loss[np.where(np.isclose(loss, loss.mean(), rtol=self.rtol, atol=self.atol))[0][0]]}\n')
+        filenm.write(f'{limit95}\n')
+        filenm.write(f'{loss.max()}\n')
+        filenm.close()
