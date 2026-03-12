@@ -1,4 +1,4 @@
-import pandas as pd
+import numpy as np
 from globalemu.gui_config import config
 from globalemu.downloads import download
 import shutil
@@ -26,7 +26,14 @@ def test_config():
 
     assert(os.path.exists('xHI_release/gui_configuration.csv') is True)
 
-    res = pd.read_csv('xHI_release/gui_configuration.csv')
+    res = np.genfromtxt(
+            'xHI_release/gui_configuration.csv',
+            delimiter=',',
+            names=True,
+            dtype='U100,f8,f8,f8,f8,U100,U100',  # Explicitly specify types
+            encoding='utf-8'
+        )
+
     logs = res['logs'].tolist()
     logs = [int(x) for x in logs if x != '--']
     assert(logs == [0, 1, 2])
