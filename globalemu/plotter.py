@@ -11,7 +11,7 @@ figure will be saved in the provided ``'base_dir/'``.
 import numpy as np
 from globalemu.losses import loss_functions
 import matplotlib.pyplot as plt
-
+import os
 
 class signal_plot():
 
@@ -214,6 +214,8 @@ class signal_plot():
         #Shikhar: saving the data for the quality figure for customisation purpose.
         print('\nSaving the predicted and true signals.\n')
         save_dir = self.base_dir + '/checks/'
+        if not os.path.isdir(save_dir):
+            os.makedirs(save_dir)
         np.save(save_dir+'mean_true',mean_label)
         np.save(save_dir+'mean_pred',mean_pred)
         np.save(save_dir+'95_true',limit_label)
